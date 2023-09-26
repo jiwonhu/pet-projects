@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rocky-pod
+  #namespace: t036-u000038 # for 3rd party
+spec:
+  containers:
+  - name: bash
+    image: rockylinux:9.2
+    #toruonvp-ordcct-10.rp1.ocloud.telus.com:31666/docker-virtual/bash:latest
+    command: ["/bin/sh", "-c", "tail -f /dev/null"]
+    volumeMounts:
+    - name: pvc
+      mountPath: /volume
+      readOnly: false
+  volumes:
+  - name: pvc
+    persistentVolumeClaim:
+      claimName: toruonvp-ord-bigip-01-root-fs-1-72fb3c12
+      #toruonvp-ord-dhcp2-01-root-fs-1-f5cfa56d
+  nodeSelector:
+    kubernetes.io/hostname: toruonvp-ordcct-04
